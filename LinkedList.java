@@ -89,20 +89,21 @@ public class LinkedList {
 			throw new IllegalArgumentException("Index must be between 0 and size.");
 		}
 		Node newNode = new Node(block);
-		if (index == 0) {
-			newNode.next = first; 
-			first = newNode;   
-		} 
-		else if (index == size) {
-			last.next = newNode; 
-			last = newNode;   
+		if (size == 0) { 
+			first = newNode;
+			last = newNode;
+		} else if (index == 0) { 
+			newNode.next = first;
+			first = newNode;
+		} else if (index == size) { 
+			last.next = newNode;
+			last = newNode;
+		} else { 
+			Node prev = getNode(index - 1);
+			newNode.next = prev.next;
+			prev.next = newNode;
 		}
-		else {
-			Node prev = getNode(index - 1); 
-			newNode.next = prev.next;      
-			prev.next = newNode;    
-		}
-		size++;        
+		size++;   
 	}
 
 	/**
@@ -206,6 +207,7 @@ public class LinkedList {
 			throw new IllegalArgumentException("Node not found in the list.");
 		}
 		current.next = node.next;
+		node.next = null; 
 		if (node == last) {
 			last = current;
 		}
@@ -248,7 +250,36 @@ public class LinkedList {
 	 *         if the given memory block is not in this list
 	 */
 	public void remove(MemoryBlock block) {
-		//// Write your code here
+		if (block == null || size == 0) {
+			throw new IllegalArgumentException("Block is null or the list is empty.");
+		}
+	
+		if (first.block.equals(block)) {
+			first = first.next;
+			if (first == null) {
+				last = null;
+			}
+			size--;
+			return;
+		}
+	
+		Node current = first;
+		while (current.next != null && !current.next.block.equals(block)) {
+			current = current.next;
+		}
+	
+		if (current.next == null) {
+			throw new IllegalArgumentException("Block not found in the list.");
+		}
+	
+		Node nodeToRemove = current.next;
+		current.next = nodeToRemove.next;
+	
+		if (nodeToRemove == last) {
+			last = current;
+		}
+	
+		size--;
 	}	
 
 	/**
@@ -262,7 +293,22 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		//// Replace the following statement with your code
-		return "";
+		if (size == 0) {
+			return "()";
+		}
+	
+		String result = "(";
+		Node current = first;
+	
+		while (current != null) {
+			result += current.block.toString();
+			if (current.next != null) {
+				result += ") (";
+			}
+			current = current.next;
+		}
+	
+		result += ")";
+		return result;
 	}
 }
