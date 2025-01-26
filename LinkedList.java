@@ -251,7 +251,7 @@ public class LinkedList {
 	 */
 	public void remove(MemoryBlock block) {
 		if (block == null || size == 0) {
-			throw new IllegalArgumentException("Block is null or the list is empty.");
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 	
 		if (first.block.equals(block)) {
@@ -269,7 +269,7 @@ public class LinkedList {
 		}
 	
 		if (current.next == null) {
-			throw new IllegalArgumentException("Block not found in the list.");
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 	
 		Node nodeToRemove = current.next;
