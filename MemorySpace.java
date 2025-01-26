@@ -88,7 +88,23 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
-		//// Write your code here
+		if (allocatedList.getSize() == 0) {
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
+		ListIterator iterator = allocatedList.iterator();
+		MemoryBlock blockToFree = null;
+		while (iterator.hasNext()) {
+			MemoryBlock currentBlock = iterator.next();
+			if (currentBlock.baseAddress == address) {
+				blockToFree = currentBlock;
+				break;
+			}
+		}
+		if (blockToFree == null) {
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
+		allocatedList.remove(blockToFree);
+		freeList.addLast(blockToFree);
 	}
 	
 	/**
