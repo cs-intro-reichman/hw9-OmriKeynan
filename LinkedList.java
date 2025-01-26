@@ -155,7 +155,7 @@ public class LinkedList {
 	 */
 	public MemoryBlock getBlock(int index) {
 		if (index < 0 || index >= size) {
-			throw new IllegalArgumentException("Index must be between 0 and size - 1");
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 		Node current = getNode(index);
 		return current.block;
