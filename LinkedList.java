@@ -294,21 +294,14 @@ public class LinkedList {
 	 */
 	public String toString() {
 		if (size == 0) {
-			return "()";
+			return "";
 		}
-	
-		String result = "(";
+		String str = "";
 		Node current = first;
-	
 		while (current != null) {
-			result += current.block.toString();
-			if (current.next != null) {
-				result += ") (";
-			}
+			str += current.block + " ";
 			current = current.next;
 		}
-	
-		result += ")";
-		return result;
-	}
+		return str.trim() + " ";
+	}	
 }
