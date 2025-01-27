@@ -121,7 +121,19 @@ public class MemorySpace {
 	 * In this implementation Malloc does not call defrag.
 	 */
 	public void defrag() {
-		/// TODO: Implement defrag test
-		//// Write your code here
+		if (freeList.getSize() <= 1) {
+			return;
+		}
+		ListIterator iterator = freeList.iterator();
+		MemoryBlock previousBlock = iterator.next();
+		while (iterator.hasNext()) {
+			MemoryBlock currentBlock = iterator.next();
+			if (previousBlock.baseAddress + previousBlock.length == currentBlock.baseAddress) {
+				previousBlock.length += currentBlock.length;
+				freeList.remove(currentBlock);
+			} else {
+				previousBlock = currentBlock; 
+			}
+		}
 	}
 }
